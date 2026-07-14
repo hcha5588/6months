@@ -182,6 +182,14 @@
             perspective: 1000px;
             margin-bottom: 50px;
             cursor: pointer;
+            position: relative;
+            z-index: 5; /* 預設層級 */
+            transition: z-index 0.3s ease;
+        }
+
+        /* 開啟時提升整體信封容器層級，防止溢出的信件被下方的照片蓋住 */
+        .envelope-wrapper.is-open {
+            z-index: 35;
         }
 
         .envelope {
@@ -264,7 +272,7 @@
             display: none;
         }
 
-        /* 汪汪的情書本體（在信封開啟時向上滑動，並立於網頁正中央） */
+        /* 汪汪的情書本體 */
         .letter-card {
             background: var(--card-bg);
             border-radius: 24px;
@@ -295,15 +303,55 @@
             pointer-events: none;
         }
 
-        /* 當信封打開時的彈出並展開狀態 */
+        /* 當信封打開時的彈出並展開狀態 (限制最高高度並允許精美滾動) */
         .envelope-wrapper.is-open .letter-card {
             position: relative;
             height: auto;
+            max-height: 420px; /* 完美比例高度，不蓋住網頁其餘內容 */
+            overflow-y: auto;  /* 允許上下方向滑動讀信 */
             opacity: 1;
             transform: scale(1) translateY(-140px);
-            z-index: 10;
+            z-index: 40; /* 確保高於照片牆 */
             pointer-events: auto;
-            box-shadow: 0 20px 50px rgba(90, 75, 65, 0.15);
+            box-shadow: 0 20px 50px rgba(90, 75, 65, 0.18);
+            
+            /* 優化信件卡片的滾動條樣式 */
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-color) transparent;
+        }
+
+        /* Webkit 專屬信卡滾動條樣式 */
+        .letter-card::-webkit-scrollbar {
+            width: 6px;
+        }
+        .letter-card::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .letter-card::-webkit-scrollbar-thumb {
+            background-color: var(--primary-color);
+            border-radius: 10px;
+        }
+
+        /* 滾動閱讀小提示 */
+        .scroll-indicator {
+            text-align: center;
+            font-size: 12px;
+            color: var(--accent-color);
+            margin-top: 12px;
+            font-family: var(--serif-font);
+            animation: bounce 2s infinite;
+            display: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .envelope-wrapper.is-open .scroll-indicator {
+            display: block;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-6px); }
+            60% { transform: translateY(-3px); }
         }
 
         /* 情書標題與簽名修飾 */
@@ -483,6 +531,7 @@
             transform: scale(0.9) rotate(-1deg);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2);
             border: 1px solid rgba(255,255,255,0.8);
+            position: relative;
         }
 
         .modal.active .modal-content {
@@ -539,6 +588,7 @@
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             transition: transform 0.2s;
+            z-index: 101;
         }
 
         .close-btn:hover {
@@ -587,7 +637,7 @@
             <div class="days-counter">✨ 我哋相愛嘅第 180 日半週年紀念 ✨</div>
         </div>
 
-        <!-- 情書信封區域 (信件立於正中心) -->
+        <!-- 情書信封區域 (信件可上下滑動滾動，並完美遮罩) -->
         <div class="envelope-wrapper" id="envelopeWrapper">
             <div class="envelope" id="envelope">
                 <div class="envelope-flap"></div>
@@ -620,6 +670,10 @@
                     </div>
                 </div>
             </div>
+            <!-- 滾動提示小標記 -->
+            <div class="scroll-indicator" id="scrollIndicator">
+                <i class="fa-solid fa-angles-down"></i> 往下滑動滾動閱讀更多 📜
+            </div>
         </div>
 
         <!-- 相片牆標題與月份篩選器 -->
@@ -650,7 +704,6 @@
         </div>
     </div>
 
-    <!-- 腳本與資料庫設定 -->
     <script>
         // 漂浮背景粒子
         const container = document.getElementById('floatContainer');
@@ -718,175 +771,178 @@
             setTimeout(() => bubble.remove(), 2000);
         }
 
-        // 21 張拍立得回憶資料庫
+        // 21 張拍立得回憶資料庫 - 已經完美對應並替換成你所指明的文件名及廣東話浪漫註解
         const PHOTO_DATABASE = [
+            // ==================== 第 1-2 個月 ====================
             {
                 id: 1,
                 month: "m1-2",
-                image: "https://images.unsplash.com/photo-1516624683217-bf02fc6b6b7c?auto=format&fit=crop&w=500&q=80",
-                title: "海傍日落漫步 🌅",
+                image: "images/IMG_2841.jpg",
+                title: "一齊之後嘅第一餐 💕🐶🐦",
                 badge: "第 1 個月",
-                desc: "維港最迷人嘅魔幻時刻，夕陽將整片海面染成粉橘色。手牽手喺海旁漫步，係我哋最溫馨、最完美嘅開始。"
+                desc: "一齊之後食嘅第一餐飯。其實食咩已經唔係最重要，對面坐住邊個先最緊要。汪汪同鵪鶉正式啟航啦！"
             },
             {
                 id: 2,
                 month: "m1-2",
-                image: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=500&q=80",
-                title: "紅扭蛋爭奪戰 🎲",
+                image: "images/image_16861697.jpg",
+                title: "手指餐hehe 🍕",
                 badge: "第 1 個月",
-                desc: "喺溫馨嘅木系 Cafe 入面，我哋兩個同嗰粒死都擰唔開嘅紅色扭蛋鬥智鬥勇。你當時個無奈又搞笑嘅表情，我一世都記得！"
+                desc: "隨手拎住就食，雖然隨性但好舒服。同你一齊，就算係最簡單、最不修邊幅嘅日子，都覺得好特別、好開心！"
             },
             {
                 id: 3,
                 month: "m1-2",
-                image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=500&q=80",
-                title: "第一束驚喜玫瑰 💐",
+                image: "images/IMG_3101.jpg",
+                title: "追單車俾我追到手啦 🙈😘",
                 badge: "第 1 個月",
-                desc: "我第一次送花畀你，見到你面上驚訝又害羞嘅笑容，我心跳得好快。多謝你，願意畀我帶給你溫暖。"
+                desc: "我踩住單車死追爛追，終於將你呢隻咁得意嘅小鵪鶉追到手啦！以後，你行到邊我都一定會跟到邊。"
             },
             {
                 id: 4,
                 month: "m1-2",
-                image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=500&q=80",
-                title: "寒風中的熱朱古力 ☕",
+                image: "images/IMG_3135.jpg",
+                title: "捕捉猙獰一面之雀雀禮物 😂",
                 badge: "第 1 個月",
-                desc: "寒冷嘅下雨天，我哋一齊擠喺路邊飲熱朱古力。雖然風好大，但將你嘅手放進我嘅大衣口袋裡，就覺得好暖和。"
+                desc: "哈哈！捕捉到你超猙獰但其實超級得意嘅瞬間！原來係雀雀禮物，平時斯斯文文嘅你，呢個反差真係融化我。"
             },
             {
                 id: 5,
                 month: "m1-2",
-                image: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=500&q=80",
-                title: "深夜讀書會 📚",
-                badge: "第 1 個月",
-                desc: "我哋喺圖書館坐咗成個下晝。雖然各自睇書，但每次抬頭對視，或者手背不經意嘅觸碰，都充滿著最初嘅心動。"
+                image: "images/IMG_3485.jpg",
+                title: "超緊張嘅AIA 😂 awww",
+                badge: "第 2 個月",
+                desc: "喺 AIA 嘉年華時，真係又興奮又心跳加速！人潮入面緊緊拖住你，好想時間就咁停低，一世都攬實你。"
             },
             {
                 id: 6,
                 month: "m1-2",
-                image: "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=500&q=80",
-                title: "海盗船狂呼之夜 🎡",
+                image: "images/IMG_4661.jpg",
+                title: "第一次出去住 😍😚",
                 badge: "第 2 個月",
-                desc: "喺復古夜市嘅經典海盜船上面驚叫狂笑。當部船盪到最高嘅時候，我驚到死死抱住你，有你喺度我就覺得好有安全感！"
+                desc: "我哋第一次出去住嘅溫馨回憶。屬於我哋兩個嘅秘密小空間，打打鬧鬧、甜甜蜜蜜，令我哋心與心之間靠得更近。"
             },
             {
                 id: 7,
                 month: "m1-2",
-                image: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=500&q=80",
-                title: "天星小輪依偎記 🚢",
+                image: "images/IMG_4839.jpg",
+                title: "睇靚嘅日落我揀嘅 😎",
                 badge: "第 2 個月",
-                desc: "靠喺復古木質長椅上面，吹住海風依偎埋一齊。耳邊伴隨住小輪嘅引擎聲同海浪聲，真係好想時間就咁停低。"
+                desc: "夕陽無限好，而呢個咁靚嘅夕陽係我用心揀架！金黃色嘅光芒灑喺你面上，你比日落本身更加美麗迷人。"
             },
             {
                 id: 8,
                 month: "m1-2",
-                image: "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=500&q=80",
-                title: "雨中浪漫撐傘 ☔",
+                image: "images/image_67525121.jpg",
+                title: "完美 101！ 💯✨",
                 badge: "第 2 個月",
-                desc: "突然落大雨，我哋一邊跑一邊笑。雖然遮好細、褲腳都濕透，但係一齊喺雨中大笑，就係最美嘅回憶。"
+                desc: "呢個日子對我哋嚟講係 101 分嘅完美！我哋嘅默契越來越好，每日同你相處都充滿着無限驚喜同幸福。"
             },
+            // ==================== 第 3-4 個月 ====================
             {
                 id: 9,
                 month: "m3-4",
-                image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=500&q=80",
-                title: "黃金海岸地平線 🏖️",
+                image: "images/IMG_5019.jpg",
+                title: "天慧寶煮嘅第一餐 🥰",
                 badge: "第 3 個月",
-                desc: "一齊企喺高空露台望出去，成片橙紅色嘅黃金夕陽鋪滿海面。身邊企住我最愛嘅人，呢一幕真係靚到令人窒息。"
+                desc: "天慧寶大廚親自出馬下廚！呢個係你煮畀我嘅第一餐，簡直好食到升天！每一啖飯都裝滿左你對我嘅溫柔同愛心。"
             },
             {
                 id: 10,
                 month: "m3-4",
-                image: "https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&w=500&q=80",
-                title: "週末班戟早午餐 🥞",
+                image: "images/image_67196417.jpg",
+                title: "到我煮嘅第一餐 😂 麻麻哋",
                 badge: "第 3 個月",
-                desc: "懶洋洋嘅星期日起床，一齊去排隊食超厚嘅舒芙蕾班戟。睇你一口咬落去幸福嘅表情，我已經覺得好飽好滿足。"
+                desc: "終於到我大顯身手（其實係手忙腳亂）煮飯啦！雖然味道可能真係麻麻哋，但你都好捧場，食得津津有味，多謝你呀！"
             },
             {
                 id: 11,
                 month: "m3-4",
-                image: "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=500&q=80",
-                title: "主題城堡大冒險 🏰",
+                image: "images/image_50444801.jpg",
+                title: "佢煮嘅第二餐!!好好食 👩‍🍳",
                 badge: "第 3 個月",
-                desc: "戴上傻傻嘅卡通頭箍，一齊食棉花糖。喺繽紛嘅煙花之下，我無望住天空，因為我眼中只有最閃亮嘅你。"
+                desc: "天慧寶廚神廚藝大爆發嘅第二餐！味道簡直同出面高級餐廳有得比，好食到我連碗都想奶埋。一世都食你煮嘅飯就正啦！"
             },
             {
                 id: 12,
                 month: "m3-4",
-                image: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=500&q=80",
-                title: "小廚神蜆肉意粉 🍝",
-                badge: "第 4 個月",
-                desc: "我哋喺屋企溫馨小下廚，一人一碗熱辣辣、香噴噴嘅蒜香蜆肉意粉。雖然有啲鹹，但有你一齊煮，就係最好味嘅晚餐！"
+                image: "images/IMG_5920.jpg",
+                title: "100日! 好有紀念價值 😚",
+                badge: "第 3 個月",
+                desc: "不知不覺一齊 100 日啦！聽你溫柔咁講呢個日子好有紀念價值，我心入面好感動。只要身邊係你，每一日都好珍貴。"
             },
             {
                 id: 13,
                 month: "m3-4",
-                image: "https://images.unsplash.com/photo-1535141192574-5d4897c13636?auto=format&fit=crop&w=500&q=80",
-                title: "紅圍巾企鵝蛋糕 🐧",
+                image: "images/image_50436609.jpg",
+                title: "好開心嘅飲茶 😊",
                 badge: "第 4 個月",
-                desc: "慶祝我哋一齊嘅特別日子！碟上面畫住超得意嘅情侶企鵝，仲細心地畫咗我哋一齊戴住嘅紅色情侶圍巾添！"
+                desc: "同你一齊去飲茶，食吓燒賣、蝦餃。雖然只係最平凡嘅周末日常，但同你一齊大笑傾偈，就係最踏實嘅幸福。"
             },
             {
                 id: 14,
                 month: "m3-4",
-                image: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=500&q=80",
-                title: "森林綠意吸氧行 🌲",
+                image: "images/image_50727169.jpg",
+                title: "踩船搵龜頭 😌😌",
                 badge: "第 4 個月",
-                desc: "你帶我去漫步芬多精森林。雖然行到腳痛、成身汗，但聽住小鳥咕咕聲，感受大自然嘅悠閒，非常治癒。"
+                desc: "兩個傻瓜一齊去踩船仔，仲話要「搵龜頭」，哈哈！雖然踩到腳都軟晒、汗流浹背，但一齊探索同大笑，真係好療癒。"
             },
             {
                 id: 15,
                 month: "m3-4",
-                image: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=500&q=80",
-                title: "1000片拼圖挑戰 🧩",
+                image: "images/image_50750721.jpg",
+                title: "glamping!!! 🌌 無星跟住嬲咗我 🥲",
                 badge: "第 4 個月",
-                desc: "我哋喺客廳地板鋪滿拼圖，拼到腰酸背痛。當最後一塊被你按落去嗰一刻，我哋興奮到喺地下打滾，好似贏咗大賽咁。"
+                desc: "超期待嘅 glamping 露營大冒險！點知當晚天氣唔好，一粒星都無，結果你仲因為咁嬲咗我。好彩最後用一個大抱抱氹返你！"
             },
+            // ==================== 第 5-6 個月 ====================
             {
                 id: 16,
                 month: "m5-6",
-                image: "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=500&q=80",
-                title: "蓮花祈願祝福 🪷",
+                image: "images/IMG_7802.jpg",
+                title: "許願吹蠟燭 😂🌙",
                 badge: "第 5 個月",
-                desc: "我哋捧住手工摺疊嘅粉金色紙蓮花，並肩笑得咁甜。心入面默默許願，祈求我哋可以一齊走過未來無數個半年。"
+                desc: "一齊捧住蛋糕許願，點知手忙腳亂「撳熄咗」支蠟燭！雖然場面一度好搞笑，但相信我哋許嘅甜美願望一定會實現。"
             },
             {
                 id: 17,
                 month: "m5-6",
-                image: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=500&q=80",
-                title: "東京鐵塔飛天鳥 🗼",
+                image: "images/IMG_8245.jpg",
+                title: "第一次出國旅行!!!! 😊",
                 badge: "第 5 個月",
-                desc: "一齊去日本東京鐵塔探險！高高舉起我哋嘅情侶小公仔同紅白鐵塔合照，呢個旅行回憶真係一世難忘！"
+                desc: "我哋人生中第一次一齊出遠門去旅行！踏足陌生嘅城市，因為身邊有你拖住我，成個旅程都閃閃發亮，好值得一世留念。"
             },
             {
                 id: 18,
                 month: "m5-6",
-                image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=500&q=80",
-                title: "深夜觀星兜風 🌌",
+                image: "images/image_67222017.jpg",
+                title: "和好嘅溜冰 🥺",
                 badge: "第 5 個月",
-                desc: "深夜開車到無人嘅山頂，躺喺引擎蓋上望流星。雖然無見到好大顆嘅，但有你喺身邊，我就像擁有咗一整片星空。"
+                desc: "鬧完脾氣、頂完嘴之後一齊去和好溜冰。手拖手喺冰面上慢慢平衡，一邊驚一邊笑，原來幸福就係跌跌撞撞都唔放手。"
             },
             {
                 id: 19,
                 month: "m5-6",
-                image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=500&q=80",
-                title: "機場貓咪治癒術 🐱",
+                image: "images/image_67226113.jpg",
+                title: "同吉祥物影相 🥰",
                 badge: "第 6 個月",
-                desc: "喺轉機候機室，學後面巨型大懶貓 mascot 伸懶腰、擺出貓咪手掌 pose。有你陪住去邊度，旅途都唔會覺得攰。"
+                desc: "同巨型可愛吉祥物影合照！你當時笑得特別甜、特別無邪，搞到我眼中完全睇唔到吉祥物，只見到最可愛嘅你。"
             },
             {
                 id: 20,
                 month: "m5-6",
-                image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=500&q=80",
-                title: "酒店驚喜慶生 🎈",
+                image: "images/IMG_8802.jpg",
+                title: "返到嚟扮貓貓可愛 😘",
                 badge: "第 6 個月",
-                desc: "喺酒店房鋪滿粉紅色同白色氣球嘅床上，我哋捧住「26」同「HAPPY BIRTHDAY」氣球嘅甜蜜 Selfie。多謝你為我精心準備嘅驚喜！"
+                desc: "返到酒店房，你喺度扮貓貓喵喵叫，真係超級無敵可愛！我成粒心都被你溶化晒，以後都想繼續俾你咁樣萌倒。"
             },
             {
                 id: 21,
                 month: "m5-6",
-                image: "https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?auto=format&fit=crop&w=500&q=80",
-                title: "期待未來的冒險 ♾️",
+                image: "images/IMG_8919.jpg",
+                title: "難忘到喊嘅生日party 😭",
                 badge: "第 6 個月",
-                desc: "走過漫長又浪漫嘅 6 個月，我哋手牽得更緊了。未來還有無數個 6 個月、無數場未知的世界大冒險等待住我哋！"
+                desc: "精心準備嘅驚喜生日 Party！見到你感動到流眼淚嗰一刻，我真係覺得所有嘅心思同汗水都無白費。半週年快樂，寶貝！"
             }
         ];
 
@@ -910,8 +966,8 @@
                 const randomAngle = (Math.random() * 4 - 2).toFixed(1);
                 card.style.transform = `rotate(${randomAngle}deg)`;
 
-                // 錯誤圖片處理 (以 SVG 代替 broken link，確保網站完美運行)
-                const fallbackImgUrl = `https://placehold.co/400x400/fff0ed/e8a598?text=${encodeURIComponent(photo.title.substring(0, 10))}`;
+                // 錯誤圖片處理 (以 SVG 代替 broken link，確保網站完美運行且預留無縫上傳空間)
+                const fallbackImgUrl = `https://placehold.co/400x400/fff0ed/e8a598?text=${encodeURIComponent(photo.title.substring(0, 15))}`;
 
                 card.innerHTML = `
                     <img src="${photo.image}" alt="${photo.title}" onerror="this.onerror=null; this.src='${fallbackImgUrl}';">
