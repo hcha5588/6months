@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我哋一齊六個月啦! ❤️ 汪汪 & 鵪鶉</title>
+    <!-- Google Fonts for romantic handwriting and elegant display serif -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Noto+Serif+HK:wght@300;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for romantic hand-drawn styled icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #fdfaf6;
+            --card-bg: #ffffff;
+            --primary-color: #e8a598;
+            --text-color: #5a4b41;
+            --text-muted: #8a7a70;
+            --accent-color: #df9c8c;
+            --border-soft: rgba(223, 156, 140, 0.15);
+            --serif-font: 'Playfair Display', 'Noto Serif HK', serif;
+            --handwritten-font: 'Caveat', cursive, "Microsoft JhengHei", sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 網頁左右兩側微風搖曳的植物插畫裝飾 */
+        body::before, body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            width: 180px;
+            height: 100vh;
+            background-repeat: no-repeat;
+            background-size: contain;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+            animation: gentleSway 8s ease-in-out infinite alternate;
+        }
+
+        /* 左側插畫 */
+        body::before {
+            left: 0;
+            background-image: url('https://static.vecteezy.com/system/resources/thumbnails/006/555/524/small/green-seamless-brush-border-with-leafes-branches-and-flowers-design-seamless-leaves-frame-for-wedding-invitations-greeting-cards-nature-organic-items-vector.jpg');
+            background-position: left center;
+            transform-origin: left center;
+        }
+
+        /* 右側插畫 */
+        body::after {
+            right: 0;
+            background-image: url('https://static.vecteezy.com/system/resources/thumbnails/006/555/524/small/green-seamless-brush-border-with-leafes-branches-and-flowers-design-seamless-leaves-frame-for-wedding-invitations-greeting-cards-nature-organic-items-vector.jpg');
+            background-position: right center;
+            transform: scaleX(-1); /* 鏡像翻轉 */
+            transform-origin: right center;
+        }
+
+        @keyframes gentleSway {
+            0% { transform: rotate(-1deg) translateY(0); }
+            100% { transform: rotate(1deg) translateY(-10px); }
+        }
+
+        /* 漂浮愛心、足跡與羽毛特效 */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart, .feather, .paw {
+            position: absolute;
+            opacity: 0.4;
+            animation: floatUp 8s ease-in infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(105vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% {
+                transform: translateY(-10vh) translateX(50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 頂部 Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            background: rgba(255, 255, 255, 0.65);
+            padding: 30px 20px;
+            border-radius: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 30px rgba(232, 165, 152, 0.08);
+        }
+
+        .mascots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .mascot-wrapper {
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .mascot-wrapper:hover {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .heart-icon {
+            color: #e25c5c;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.18); }
+            100% { transform: scale(1); }
+        }
+
+        h1 {
+            font-family: var(--serif-font);
+            font-size: 32px;
+            color: var(--text-color);
+            margin: 10px 0;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .days-counter {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 8px 24px;
+            border-radius: 30px;
+            display: inline-block;
+            font-size: 15px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(232, 165, 152, 0.35);
+            letter-spacing: 1px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        /* 互動式摺疊信封與情書系統 */
+        .envelope-wrapper {
+            perspective: 1000px;
+            margin-bottom: 50px;
+            cursor: pointer;
+        }
+
+        .envelope {
+            position: relative;
+            background: #f4eae1;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 15px 40px rgba(90, 75, 65, 0.1);
+            transition: transform 0.5s ease;
+            height: 220px;
+            overflow: visible;
+        }
+
+        .envelope.open {
+            transform: translateY(120px);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            border-left: 355px solid transparent;
+            border-right: 355px solid transparent;
+            border-top: 130px solid #e9ded3;
+            transform-origin: top;
+            transition: transform 0.4s ease, z-index 0.2s ease;
+            z-index: 4;
+        }
+        
+        /* 響應式信封折角修正 */
+        @media (max-width: 750px) {
+            .envelope-flap {
+                border-left-width: calc(50vw - 20px);
+                border-right-width: calc(50vw - 20px);
+            }
+        }
+
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .envelope-body {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(135deg, rgba(24df, 156, 140, 0.1), transparent);
+            border-radius: 0 0 20px 20px;
+            z-index: 3;
+            border-top: 1px dashed rgba(90, 75, 65, 0.05);
+            pointer-events: none;
+        }
+
+        .wax-seal {
+            position: absolute;
+            top: -15px;
+            left: calc(50% - 25px);
+            width: 50px;
+            height: 50px;
+            background: #bd3a3a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            z-index: 5;
+            transition: transform 0.3s ease;
+        }
+
+        .wax-seal:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .envelope.open .wax-seal {
+            display: none;
+        }
+
+        /* 汪汪的情書本體（在信封開啟時向上滑動，並立於網頁正中央） */
+        .letter-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(90, 75, 65, 0.05);
+            border: 1px solid var(--border-soft);
+            white-space: pre-wrap;
+            font-size: 16px;
+            line-height: 2;
+            color: var(--text-color);
+            position: relative;
+            z-index: 2;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s;
+        }
+
+        /* 當融入信封時的縮小狀態 */
+        .envelope-wrapper .letter-card {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            right: 20px;
+            height: 180px;
+            overflow: hidden;
+            opacity: 0.8;
+            transform: scale(0.95);
+            z-index: 2;
+            padding: 20px;
+            pointer-events: none;
+        }
+
+        /* 當信封打開時的彈出並展開狀態 */
+        .envelope-wrapper.is-open .letter-card {
+            position: relative;
+            height: auto;
+            opacity: 1;
+            transform: scale(1) translateY(-140px);
+            z-index: 10;
+            pointer-events: auto;
+            box-shadow: 0 20px 50px rgba(90, 75, 65, 0.15);
+        }
+
+        /* 情書標題與簽名修飾 */
+        .letter-header {
+            font-family: var(--serif-font);
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--accent-color);
+            border-bottom: 2px dashed rgba(223, 156, 140, 0.2);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .signature {
+            text-align: right;
+            margin-top: 40px;
+            font-weight: bold;
+            border-top: 1px dashed rgba(223, 156, 140, 0.3);
+            padding-top: 20px;
+            color: var(--accent-color);
+            font-family: var(--serif-font);
+        }
+
+        /* 相簿主題區與月份篩選器 */
+        .gallery-title {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            font-family: var(--serif-font);
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--text-color);
+            background: rgba(255, 255, 255, 0.5);
+            display: inline-block;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            width: fit-content;
+            padding: 8px 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(90, 75, 65, 0.02);
+        }
+
+        .month-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 35px;
+        }
+
+        .filter-btn {
+            background-color: white;
+            border: 1px solid var(--border-soft);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(232, 165, 152, 0.3);
+        }
+
+        /* 拍立得相簿網格 */
+        .polaroid-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            transition: all 0.5s ease;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 15px 15px 30px 15px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(90, 75, 65, 0.06);
+            transform: rotate(-1.5deg);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, opacity 0.4s ease;
+            border: 1px solid rgba(0,0,0,0.02);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .polaroid::before {
+            content: "";
+            position: absolute;
+            top: -12px;
+            left: 35%;
+            width: 30%;
+            height: 25px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(2px);
+            transform: rotate(-3deg);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            border-left: 1px solid rgba(255,255,255,0.1);
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .polaroid:nth-child(even) {
+            transform: rotate(1.5deg);
+        }
+
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.05);
+            box-shadow: 0 15px 35px rgba(90, 75, 65, 0.12);
+            z-index: 5;
+        }
+
+        .polaroid img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 6px;
+            background-color: #f2ede9;
+            transition: filter 0.3s ease;
+        }
+
+        .caption {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 15px;
+            font-weight: 600;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .caption span.badge {
+            background-color: rgba(232, 165, 152, 0.15);
+            color: var(--accent-color);
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        /* 互動式拍立得大圖彈出系統 (Lightbox Modal) */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(90, 75, 65, 0.65);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            padding: 20px;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px 20px 35px 20px;
+            border-radius: 16px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+            transform: scale(0.9) rotate(-1deg);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1) rotate(0);
+        }
+
+        .modal-img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .modal-info {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .modal-title {
+            font-family: var(--serif-font);
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        .modal-desc {
+            font-family: var(--handwritten-font);
+            font-size: 22px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-top: 10px;
+            background: #fffdf9;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px dashed var(--border-soft);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--text-color);
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .close-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* 響應式佈局 */
+        @media (max-width: 768px) {
+            body::before, body::after {
+                display: none; /* 在手機版隱藏大裝飾以保持簡潔 */
+            }
+            .container {
+                padding: 20px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .polaroid-grid {
+                grid-template-columns: 1fr; /* 單列排列方便閱讀 */
+            }
+            .letter-card {
+                padding: 25px 20px;
+                font-size: 15px;
+            }
+            h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 背景漂浮粒子裝飾 -->
+    <div class="floating-elements" id="floatContainer"></div>
+
+    <div class="container">
+        <!-- 頂部 Header -->
+        <div class="header">
+            <div class="mascots">
+                <div class="mascot-wrapper" onclick="triggerMascotReaction('puppy')">🐶</div>
+                <span class="heart-icon"><i class="fa-solid fa-heart"></i></span>
+                <div class="mascot-wrapper" onclick="triggerMascotReaction('quail')">🐦</div>
+            </div>
+            <h1>汪汪 & 鵪鶉</h1>
+            <div class="subtitle">致我哋最溫柔可愛嘅鵪鶉，由汪汪精心打造</div>
+            <div class="days-counter">✨ 我哋相愛嘅第 180 日半週年紀念 ✨</div>
+        </div>
+
+        <!-- 情書信封區域 (信件立於正中心) -->
+        <div class="envelope-wrapper" id="envelopeWrapper">
+            <div class="envelope" id="envelope">
+                <div class="envelope-flap"></div>
+                <div class="wax-seal">
+                    <i class="fa-solid fa-heart animate-pulse"></i>
+                </div>
+                <div class="envelope-body"></div>
+                
+                <!-- 信件本體 -->
+                <div class="letter-card" id="letterCard">
+                    <div class="letter-header">❤️ 汪汪 & 鵪鶉：半週年手寫情書 ❤️</div>我哋一齊六個月啦! 汪汪同鵪鶉嘅愛喺呢啲日子,里程碑好值得回顧,我鍾意將多啲感受講出嚟 
+
+呢段時間經歷咗幾次你嬲豬唔開心 我地跟住又努力修補 又整喊你3次  
+但開心嘅回憶仲好多 每次開相簿見你同我去嘅地方就好開心
+
+去到呢一刻 我仲係覺得同你一齊好甜蜜 好鍾意你 唔知你係咪都係咁諗呢唔知你咁感唔感受到我足夠嘅愛呢
+希望經歷呢段時間你覺得我呢個bf 信得過 可以講多啲心底話 對我冇咁多懷疑
+
+多謝你忍讓我嘅唔安全感,煩,重複嘅問題,悶,直男 我闖禍嗰時原諒我 俾機會聽我講 成日負責搵好地方同我去 關心我嘅日常(又成日服侍我hehe)
+呢段時間我有俾心機維護我哋之間嘅關係㗎 例如比平時諗多啲你需要嘅嘢 代入你嘅角色 製造小驚喜 想你感受到 
+
+希望我哋繼續甜甜蜜蜜寶貝 磨合多啲 挑戰黎嗰陣迎接佢 喺挑戰中成長 搵到舒服嘅相處模式 繼續表達自己感受 有咩唔舒服嘅地方話俾我聽 有嘢屈住屈住好辛苦 我想早啲聽你講 一齊分擔感受 就算即時搵唔到解決方法都好 因為屈住屈住好容易引爆情緒炸彈 對關係長期落去唔健康
+愛情係一個好大嘅課題 我唔係一個專家 但我願意繼續留喺你身邊 將自己打造 用你想要愛嘅方式愛你
+
+我知我講咗好耐! 但會多啲計劃拍拖行程! ><
+                    <div class="signature">
+                        把所有溫柔留給你嘅<br>
+                        汪汪 🐶 上<br>
+                        14/7/2026
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 相片牆標題與月份篩選器 -->
+        <div class="gallery-title">📸 我們的回憶角落 (21 個甜蜜瞬間)</div>
+        
+        <div class="month-filters">
+            <button class="filter-btn active" onclick="filterMonth('all')">全部回憶</button>
+            <button class="filter-btn" onclick="filterMonth('m1-2')">第 1-2 個月 ⏳</button>
+            <button class="filter-btn" onclick="filterMonth('m3-4')">第 3-4 個月 👩‍🍳</button>
+            <button class="filter-btn" onclick="filterMonth('m5-6')">第 5-6 個月 ✈️</button>
+        </div>
+
+        <!-- 21張拍立得相片網格 (動態載入與月份歸類) -->
+        <div class="polaroid-grid" id="polaroidGrid">
+            <!-- 由 JS 自動生成並渲染 21 張精美的拍立得照片 -->
+        </div>
+    </div>
+
+    <!-- 拍立得大圖詳細 Modal -->
+    <div class="modal" id="polaroidModal">
+        <button class="close-btn" onclick="closeModal()"><i class="fa-solid fa-times"></i></button>
+        <div class="modal-content">
+            <img class="modal-img" id="modalImg" src="" alt="Zoomed Photo">
+            <div class="modal-info">
+                <div class="modal-title" id="modalTitle"></div>
+                <div class="modal-desc" id="modalDesc"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 腳本與資料庫設定 -->
+    <script>
+        // 漂浮背景粒子
+        const container = document.getElementById('floatContainer');
+        const elements = ['❤️', '🎈', '✨', '🐾', '🪶', '🌸', '🍩'];
+
+        function createFloater() {
+            const floater = document.createElement('span');
+            floater.className = 'heart';
+            floater.innerText = elements[Math.floor(Math.random() * elements.length)];
+            
+            const size = Math.random() * 12 + 15; // 15px - 27px
+            floater.style.fontSize = size + 'px';
+            floater.style.left = Math.random() * 100 + 'vw';
+            
+            const duration = Math.random() * 5 + 6; // 6s - 11s
+            floater.style.animationDuration = duration + 's';
+            
+            container.appendChild(floater);
+
+            setTimeout(() => {
+                floater.remove();
+            }, duration * 1000);
+        }
+
+        setInterval(createFloater, 800);
+
+        // 信封點擊互動
+        const envelopeWrapper = document.getElementById('envelopeWrapper');
+        const envelope = document.getElementById('envelope');
+        const letterCard = document.getElementById('letterCard');
+
+        envelopeWrapper.addEventListener('click', function(e) {
+            // 如果點擊的是信封或封蠟印章，切換開關狀態
+            if (!envelopeWrapper.classList.contains('is-open')) {
+                envelopeWrapper.classList.add('is-open');
+                envelope.classList.add('open');
+            }
+        });
+
+        // 點擊 Mascot 可愛互動
+        function triggerMascotReaction(type) {
+            const bubble = document.createElement('div');
+            bubble.style.position = 'fixed';
+            bubble.style.top = '15%';
+            bubble.style.left = '50%';
+            bubble.style.transform = 'translateX(-50%)';
+            bubble.style.background = '#fff';
+            bubble.style.color = '#5a4b41';
+            bubble.style.padding = '10px 20px';
+            bubble.style.borderRadius = '20px';
+            bubble.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
+            bubble.style.zIndex = '1000';
+            bubble.style.fontWeight = 'bold';
+            bubble.style.animation = 'pulse 0.5s ease';
+            bubble.style.fontFamily = 'var(--handwritten-font)';
+            bubble.style.fontSize = '24px';
+            
+            if (type === 'puppy') {
+                bubble.innerText = '汪汪汪！最愛我嘅鵪鶉寶貝！🐶❤️';
+            } else {
+                bubble.innerText = '咕咕！汪汪係我專屬嘅傻瓜！🐦✨';
+            }
+            
+            document.body.appendChild(bubble);
+            setTimeout(() => bubble.remove(), 2000);
+        }
+
+        // 21 張拍立得回憶資料庫
+        const PHOTO_DATABASE = [
+            {
+                id: 1,
+                month: "m1-2",
+                image: "https://images.unsplash.com/photo-1516624683217-bf02fc6b6b7c?auto=format&fit=crop&w=500&q=80",
+                title: "海傍日落漫步 🌅",
+                badge: "第 1 個月",
+                desc: "維港最迷人嘅魔幻時刻，夕陽將整片海面染成粉橘色。手牽手喺海旁漫步，係我哋最溫馨、最完美嘅開始。"
+            },
+            {
+                id: 2,
+                month: "m1-2",
+                image: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=500&q=80",
+                title: "紅扭蛋爭奪戰 🎲",
+                badge: "第 1 個月",
+                desc: "喺溫馨嘅木系 Cafe 入面，我哋兩個同嗰粒死都擰唔開嘅紅色扭蛋鬥智鬥勇。你當時個無奈又搞笑嘅表情，我一世都記得！"
+            },
+            {
+                id: 3,
+                month: "m1-2",
+                image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=500&q=80",
+                title: "第一束驚喜玫瑰 💐",
+                badge: "第 1 個月",
+                desc: "我第一次送花畀你，見到你面上驚訝又害羞嘅笑容，我心跳得好快。多謝你，願意畀我帶給你溫暖。"
+            },
+            {
+                id: 4,
+                month: "m1-2",
+                image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=500&q=80",
+                title: "寒風中的熱朱古力 ☕",
+                badge: "第 1 個月",
+                desc: "寒冷嘅下雨天，我哋一齊擠喺路邊飲熱朱古力。雖然風好大，但將你嘅手放進我嘅大衣口袋裡，就覺得好暖和。"
+            },
+            {
+                id: 5,
+                month: "m1-2",
+                image: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=500&q=80",
+                title: "深夜讀書會 📚",
+                badge: "第 1 個月",
+                desc: "我哋喺圖書館坐咗成個下晝。雖然各自睇書，但每次抬頭對視，或者手背不經意嘅觸碰，都充滿著最初嘅心動。"
+            },
+            {
+                id: 6,
+                month: "m1-2",
+                image: "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=500&q=80",
+                title: "海盗船狂呼之夜 🎡",
+                badge: "第 2 個月",
+                desc: "喺復古夜市嘅經典海盜船上面驚叫狂笑。當部船盪到最高嘅時候，我驚到死死抱住你，有你喺度我就覺得好有安全感！"
+            },
+            {
+                id: 7,
+                month: "m1-2",
+                image: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=500&q=80",
+                title: "天星小輪依偎記 🚢",
+                badge: "第 2 個月",
+                desc: "靠喺復古木質長椅上面，吹住海風依偎埋一齊。耳邊伴隨住小輪嘅引擎聲同海浪聲，真係好想時間就咁停低。"
+            },
+            {
+                id: 8,
+                month: "m1-2",
+                image: "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=500&q=80",
+                title: "雨中浪漫撐傘 ☔",
+                badge: "第 2 個月",
+                desc: "突然落大雨，我哋一邊跑一邊笑。雖然遮好細、褲腳都濕透，但係一齊喺雨中大笑，就係最美嘅回憶。"
+            },
+            {
+                id: 9,
+                month: "m3-4",
+                image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=500&q=80",
+                title: "黃金海岸地平線 🏖️",
+                badge: "第 3 個月",
+                desc: "一齊企喺高空露台望出去，成片橙紅色嘅黃金夕陽鋪滿海面。身邊企住我最愛嘅人，呢一幕真係靚到令人窒息。"
+            },
+            {
+                id: 10,
+                month: "m3-4",
+                image: "https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&w=500&q=80",
+                title: "週末班戟早午餐 🥞",
+                badge: "第 3 個月",
+                desc: "懶洋洋嘅星期日起床，一齊去排隊食超厚嘅舒芙蕾班戟。睇你一口咬落去幸福嘅表情，我已經覺得好飽好滿足。"
+            },
+            {
+                id: 11,
+                month: "m3-4",
+                image: "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=500&q=80",
+                title: "主題城堡大冒險 🏰",
+                badge: "第 3 個月",
+                desc: "戴上傻傻嘅卡通頭箍，一齊食棉花糖。喺繽紛嘅煙花之下，我無望住天空，因為我眼中只有最閃亮嘅你。"
+            },
+            {
+                id: 12,
+                month: "m3-4",
+                image: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=500&q=80",
+                title: "小廚神蜆肉意粉 🍝",
+                badge: "第 4 個月",
+                desc: "我哋喺屋企溫馨小下廚，一人一碗熱辣辣、香噴噴嘅蒜香蜆肉意粉。雖然有啲鹹，但有你一齊煮，就係最好味嘅晚餐！"
+            },
+            {
+                id: 13,
+                month: "m3-4",
+                image: "https://images.unsplash.com/photo-1535141192574-5d4897c13636?auto=format&fit=crop&w=500&q=80",
+                title: "紅圍巾企鵝蛋糕 🐧",
+                badge: "第 4 個月",
+                desc: "慶祝我哋一齊嘅特別日子！碟上面畫住超得意嘅情侶企鵝，仲細心地畫咗我哋一齊戴住嘅紅色情侶圍巾添！"
+            },
+            {
+                id: 14,
+                month: "m3-4",
+                image: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=500&q=80",
+                title: "森林綠意吸氧行 🌲",
+                badge: "第 4 個月",
+                desc: "你帶我去漫步芬多精森林。雖然行到腳痛、成身汗，但聽住小鳥咕咕聲，感受大自然嘅悠閒，非常治癒。"
+            },
+            {
+                id: 15,
+                month: "m3-4",
+                image: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=500&q=80",
+                title: "1000片拼圖挑戰 🧩",
+                badge: "第 4 個月",
+                desc: "我哋喺客廳地板鋪滿拼圖，拼到腰酸背痛。當最後一塊被你按落去嗰一刻，我哋興奮到喺地下打滾，好似贏咗大賽咁。"
+            },
+            {
+                id: 16,
+                month: "m5-6",
+                image: "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=500&q=80",
+                title: "蓮花祈願祝福 🪷",
+                badge: "第 5 個月",
+                desc: "我哋捧住手工摺疊嘅粉金色紙蓮花，並肩笑得咁甜。心入面默默許願，祈求我哋可以一齊走過未來無數個半年。"
+            },
+            {
+                id: 17,
+                month: "m5-6",
+                image: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=500&q=80",
+                title: "東京鐵塔飛天鳥 🗼",
+                badge: "第 5 個月",
+                desc: "一齊去日本東京鐵塔探險！高高舉起我哋嘅情侶小公仔同紅白鐵塔合照，呢個旅行回憶真係一世難忘！"
+            },
+            {
+                id: 18,
+                month: "m5-6",
+                image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=500&q=80",
+                title: "深夜觀星兜風 🌌",
+                badge: "第 5 個月",
+                desc: "深夜開車到無人嘅山頂，躺喺引擎蓋上望流星。雖然無見到好大顆嘅，但有你喺身邊，我就像擁有咗一整片星空。"
+            },
+            {
+                id: 19,
+                month: "m5-6",
+                image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=500&q=80",
+                title: "機場貓咪治癒術 🐱",
+                badge: "第 6 個月",
+                desc: "喺轉機候機室，學後面巨型大懶貓 mascot 伸懶腰、擺出貓咪手掌 pose。有你陪住去邊度，旅途都唔會覺得攰。"
+            },
+            {
+                id: 20,
+                month: "m5-6",
+                image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=500&q=80",
+                title: "酒店驚喜慶生 🎈",
+                badge: "第 6 個月",
+                desc: "喺酒店房鋪滿粉紅色同白色氣球嘅床上，我哋捧住「26」同「HAPPY BIRTHDAY」氣球嘅甜蜜 Selfie。多謝你為我精心準備嘅驚喜！"
+            },
+            {
+                id: 21,
+                month: "m5-6",
+                image: "https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?auto=format&fit=crop&w=500&q=80",
+                title: "期待未來的冒險 ♾️",
+                badge: "第 6 個月",
+                desc: "走過漫長又浪漫嘅 6 個月，我哋手牽得更緊了。未來還有無數個 6 個月、無數場未知的世界大冒險等待住我哋！"
+            }
+        ];
+
+        const polaroidGrid = document.getElementById('polaroidGrid');
+
+        function renderPolaroids(filterType = 'all') {
+            polaroidGrid.innerHTML = '';
+            
+            // 篩選月份資料
+            let filteredPhotos = PHOTO_DATABASE;
+            if (filterType !== 'all') {
+                filteredPhotos = PHOTO_DATABASE.filter(p => p.month === filterType);
+            }
+
+            filteredPhotos.forEach((photo, index) => {
+                const card = document.createElement('div');
+                card.className = 'polaroid';
+                card.onclick = () => openModal(photo);
+                
+                // 動態微調偏斜角度，打造逼真拍立得牆感覺
+                const randomAngle = (Math.random() * 4 - 2).toFixed(1);
+                card.style.transform = `rotate(${randomAngle}deg)`;
+
+                // 錯誤圖片處理 (以 SVG 代替 broken link，確保網站完美運行)
+                const fallbackImgUrl = `https://placehold.co/400x400/fff0ed/e8a598?text=${encodeURIComponent(photo.title.substring(0, 10))}`;
+
+                card.innerHTML = `
+                    <img src="${photo.image}" alt="${photo.title}" onerror="this.onerror=null; this.src='${fallbackImgUrl}';">
+                    <div class="caption">
+                        ${photo.title}
+                        <span class="badge">${photo.badge}</span>
+                    </div>
+                `;
+                
+                polaroidGrid.appendChild(card);
+            });
+        }
+
+        // 月份篩選器邏輯
+        function filterMonth(monthType) {
+            // 切換按鈕的 Active 狀態
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            
+            // 漸變動畫載入
+            polaroidGrid.style.opacity = '0.3';
+            setTimeout(() => {
+                renderPolaroids(monthType);
+                polaroidGrid.style.opacity = '1';
+            }, 250);
+        }
+
+        // Modal Lightbox 彈出窗系統
+        const modal = document.getElementById('polaroidModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDesc');
+
+        function openModal(photo) {
+            modalImg.src = photo.image;
+            // 備份 Fallback 機制
+            modalImg.onerror = function() {
+                this.src = `https://placehold.co/500x500/fff0ed/e8a598?text=${encodeURIComponent(photo.title)}`;
+            };
+            modalTitle.innerText = photo.title;
+            modalDesc.innerText = photo.desc;
+            
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        // 點擊 Modal 外側可以關閉
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // 首次啟動渲染
+        window.onload = function() {
+            renderPolaroids('all');
+        };
+    </script>
+</body>
+</html>
