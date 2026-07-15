@@ -183,11 +183,10 @@
             margin-bottom: 50px;
             cursor: pointer;
             position: relative;
-            z-index: 5; /* 預設層級 */
+            z-index: 5;
             transition: z-index 0.3s ease;
         }
 
-        /* 開啟時提升整體信封容器層級，防止溢出的信件被下方的照片蓋住 */
         .envelope-wrapper.is-open {
             z-index: 35;
         }
@@ -220,7 +219,6 @@
             z-index: 4;
         }
         
-        /* 響應式信封折角修正 */
         @media (max-width: 750px) {
             .envelope-flap {
                 border-left-width: calc(50vw - 20px);
@@ -239,7 +237,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: linear-gradient(135deg, rgba(24df, 156, 140, 0.1), transparent);
+            background-image: linear-gradient(135deg, rgba(223, 156, 140, 0.1), transparent);
             border-radius: 0 0 20px 20px;
             z-index: 3;
             border-top: 1px dashed rgba(90, 75, 65, 0.05);
@@ -288,7 +286,6 @@
             transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s;
         }
 
-        /* 當融入信封時的縮小狀態 */
         .envelope-wrapper .letter-card {
             position: absolute;
             top: 10px;
@@ -303,24 +300,20 @@
             pointer-events: none;
         }
 
-        /* 當信封打開時的彈出並展開狀態 (限制最高高度並允許精美滾動) */
         .envelope-wrapper.is-open .letter-card {
             position: relative;
             height: auto;
-            max-height: 420px; /* 完美比例高度，不蓋住網頁其餘內容 */
-            overflow-y: auto;  /* 允許上下方向滑動讀信 */
+            max-height: 420px;
+            overflow-y: auto;
             opacity: 1;
             transform: scale(1) translateY(-140px);
-            z-index: 40; /* 確保高於照片牆 */
+            z-index: 40;
             pointer-events: auto;
             box-shadow: 0 20px 50px rgba(90, 75, 65, 0.18);
-            
-            /* 優化信件卡片的滾動條樣式 */
             scrollbar-width: thin;
             scrollbar-color: var(--primary-color) transparent;
         }
 
-        /* Webkit 專屬信卡滾動條樣式 */
         .letter-card::-webkit-scrollbar {
             width: 6px;
         }
@@ -332,7 +325,6 @@
             border-radius: 10px;
         }
 
-        /* 滾動閱讀小提示 */
         .scroll-indicator {
             text-align: center;
             font-size: 12px;
@@ -354,7 +346,6 @@
             60% { transform: translateY(-3px); }
         }
 
-        /* 情書標題與簽名修飾 */
         .letter-header {
             font-family: var(--serif-font);
             font-size: 20px;
@@ -376,7 +367,7 @@
             font-family: var(--serif-font);
         }
 
-        /* 相簿主題區與月份篩選器 */
+        /* 相簿與篩選器 */
         .gallery-title {
             text-align: center;
             margin-top: 40px;
@@ -500,7 +491,7 @@
             font-weight: bold;
         }
 
-        /* 互動式拍立得大圖彈出系統 (Lightbox Modal) */
+        /* 拍立得大圖彈出 Modal */
         .modal {
             position: fixed;
             inset: 0;
@@ -598,7 +589,7 @@
         /* 響應式佈局 */
         @media (max-width: 768px) {
             body::before, body::after {
-                display: none; /* 在手機版隱藏大裝飾以保持簡潔 */
+                display: none;
             }
             .container {
                 padding: 20px 15px;
@@ -607,7 +598,7 @@
 
         @media (max-width: 480px) {
             .polaroid-grid {
-                grid-template-columns: 1fr; /* 單列排列方便閱讀 */
+                grid-template-columns: 1fr;
             }
             .letter-card {
                 padding: 25px 20px;
@@ -637,7 +628,7 @@
             <div class="days-counter">✨ 我哋相愛嘅第 180 日半週年紀念 ✨</div>
         </div>
 
-        <!-- 情書信封區域 (信件可上下滑動滾動，並完美遮罩) -->
+        <!-- 情書信封區域 -->
         <div class="envelope-wrapper" id="envelopeWrapper">
             <div class="envelope" id="envelope">
                 <div class="envelope-flap"></div>
@@ -670,7 +661,7 @@
                     </div>
                 </div>
             </div>
-            <!-- 滾動提示小標記 -->
+            <!-- 滾動提示 -->
             <div class="scroll-indicator" id="scrollIndicator">
                 <i class="fa-solid fa-angles-down"></i> 往下滑動滾動閱讀更多 📜
             </div>
@@ -680,16 +671,14 @@
         <div class="gallery-title">📸 我們的回憶角落 (21 個甜蜜瞬間)</div>
         
         <div class="month-filters">
-            <button class="filter-btn active" onclick="filterMonth('all')">全部回憶</button>
-            <button class="filter-btn" onclick="filterMonth('m1-2')">第 1-2 個月 ⏳</button>
-            <button class="filter-btn" onclick="filterMonth('m3-4')">第 3-4 個月 👩‍🍳</button>
-            <button class="filter-btn" onclick="filterMonth('m5-6')">第 5-6 個月 ✈️</button>
+            <button class="filter-btn active" id="btn-all" onclick="filterMonth('all')">全部回憶</button>
+            <button class="filter-btn" id="btn-m1-2" onclick="filterMonth('m1-2')">第 1-2 個月 ⏳</button>
+            <button class="filter-btn" id="btn-m3-4" onclick="filterMonth('m3-4')">第 3-4 個月 👩‍🍳</button>
+            <button class="filter-btn" id="btn-m5-6" onclick="filterMonth('m5-6')">第 5-6 個月 ✈️</button>
         </div>
 
-        <!-- 21張拍立得相片網格 (動態載入與月份歸類) -->
-        <div class="polaroid-grid" id="polaroidGrid">
-            <!-- 由 JS 自動生成並渲染 21 張精美的拍立得照片 -->
-        </div>
+        <!-- 21張拍立得相片網格 -->
+        <div class="polaroid-grid" id="polaroidGrid"></div>
     </div>
 
     <!-- 拍立得大圖詳細 Modal -->
@@ -714,11 +703,11 @@
             floater.className = 'heart';
             floater.innerText = elements[Math.floor(Math.random() * elements.length)];
             
-            const size = Math.random() * 12 + 15; // 15px - 27px
+            const size = Math.random() * 12 + 15;
             floater.style.fontSize = size + 'px';
             floater.style.left = Math.random() * 100 + 'vw';
             
-            const duration = Math.random() * 5 + 6; // 6s - 11s
+            const duration = Math.random() * 4 + 5;
             floater.style.animationDuration = duration + 's';
             
             container.appendChild(floater);
@@ -728,7 +717,8 @@
             }, duration * 1000);
         }
 
-        setInterval(createFloater, 800);
+        // 提升飄浮頻率，畫面更加浪漫浪漫
+        setInterval(createFloater, 600);
 
         // 信封點擊互動
         const envelopeWrapper = document.getElementById('envelopeWrapper');
@@ -736,7 +726,6 @@
         const letterCard = document.getElementById('letterCard');
 
         envelopeWrapper.addEventListener('click', function(e) {
-            // 如果點擊的是信封或封蠟印章，切換開關狀態
             if (!envelopeWrapper.classList.contains('is-open')) {
                 envelopeWrapper.classList.add('is-open');
                 envelope.classList.add('open');
@@ -771,13 +760,13 @@
             setTimeout(() => bubble.remove(), 2000);
         }
 
-        // 21 張拍立得回憶資料庫 - 已經完美對應並替換成你所指明的文件名及廣東話浪漫註解
+        // 21 張拍立得回憶資料庫 - 直接讀取根目錄相片（省去 images/ 資料夾結構！）
         const PHOTO_DATABASE = [
             // ==================== 第 1-2 個月 ====================
             {
                 id: 1,
                 month: "m1-2",
-                image: "images/IMG_2841.jpg",
+                image: "IMG_2841.jpg",
                 title: "一齊之後嘅第一餐 💕🐶🐦",
                 badge: "第 1 個月",
                 desc: "一齊之後食嘅第一餐飯。其實食咩已經唔係最重要，對面坐住邊個先最緊要。汪汪同鵪鶉正式啟航啦！"
@@ -785,7 +774,7 @@
             {
                 id: 2,
                 month: "m1-2",
-                image: "images/image_16861697.jpg",
+                image: "image_16861697.jpg",
                 title: "手指餐hehe 🍕",
                 badge: "第 1 個月",
                 desc: "隨手拎住就食，雖然隨性但好舒服。同你一齊，就算係最簡單、最不修邊幅嘅日子，都覺得好特別、好開心！"
@@ -793,7 +782,7 @@
             {
                 id: 3,
                 month: "m1-2",
-                image: "images/IMG_3101.jpg",
+                image: "IMG_3101.jpg",
                 title: "追單車俾我追到手啦 🙈😘",
                 badge: "第 1 個月",
                 desc: "我踩住單車死追爛追，終於將你呢隻咁得意嘅小鵪鶉追到手啦！以後，你行到邊我都一定會跟到邊。"
@@ -801,15 +790,15 @@
             {
                 id: 4,
                 month: "m1-2",
-                image: "images/IMG_3135.jpg",
-                title: "捕捉猙獰一面之雀雀禮物 😂",
+                image: "IMG_3135.jpg",
+                title: "捕捉到好猙獰嘅一面 😂 係雀雀禮物",
                 badge: "第 1 個月",
                 desc: "哈哈！捕捉到你超猙獰但其實超級得意嘅瞬間！原來係雀雀禮物，平時斯斯文文嘅你，呢個反差真係融化我。"
             },
             {
                 id: 5,
                 month: "m1-2",
-                image: "images/IMG_3485.jpg",
+                image: "IMG_3485.jpg",
                 title: "超緊張嘅AIA 😂 awww",
                 badge: "第 2 個月",
                 desc: "喺 AIA 嘉年華時，真係又興奮又心跳加速！人潮入面緊緊拖住你，好想時間就咁停低，一世都攬實你。"
@@ -817,7 +806,7 @@
             {
                 id: 6,
                 month: "m1-2",
-                image: "images/IMG_4661.jpg",
+                image: "IMG_4661.jpg",
                 title: "第一次出去住 😍😚",
                 badge: "第 2 個月",
                 desc: "我哋第一次出去住嘅溫馨回憶。屬於我哋兩個嘅秘密小空間，打打鬧鬧、甜甜蜜蜜，令我哋心與心之間靠得更近。"
@@ -825,7 +814,7 @@
             {
                 id: 7,
                 month: "m1-2",
-                image: "images/IMG_4839.jpg",
+                image: "IMG_4839.jpg",
                 title: "睇靚嘅日落我揀嘅 😎",
                 badge: "第 2 個月",
                 desc: "夕陽無限好，而呢個咁靚嘅夕陽係我用心揀架！金黃色嘅光芒灑喺你面上，你比日落本身更加美麗迷人。"
@@ -833,8 +822,8 @@
             {
                 id: 8,
                 month: "m1-2",
-                image: "images/image_67525121.jpg",
-                title: "完美 101！ 💯✨",
+                image: "image_67525121.jpg",
+                title: "101! 💯✨",
                 badge: "第 2 個月",
                 desc: "呢個日子對我哋嚟講係 101 分嘅完美！我哋嘅默契越來越好，每日同你相處都充滿着無限驚喜同幸福。"
             },
@@ -842,15 +831,15 @@
             {
                 id: 9,
                 month: "m3-4",
-                image: "images/IMG_5019.jpg",
-                title: "天慧寶煮嘅第一餐 🥰",
+                image: "IMG_5019.jpg",
+                title: "天慧寶煮俾我嘅第一餐 🥰",
                 badge: "第 3 個月",
                 desc: "天慧寶大廚親自出馬下廚！呢個係你煮畀我嘅第一餐，簡直好食到升天！每一啖飯都裝滿左你對我嘅溫柔同愛心。"
             },
             {
                 id: 10,
                 month: "m3-4",
-                image: "images/image_67196417.jpg",
+                image: "image_67196417.jpg",
                 title: "到我煮嘅第一餐 😂 麻麻哋",
                 badge: "第 3 個月",
                 desc: "終於到我大顯身手（其實係手忙腳亂）煮飯啦！雖然味道可能真係麻麻哋，但你都好捧場，食得津津有味，多謝你呀！"
@@ -858,7 +847,7 @@
             {
                 id: 11,
                 month: "m3-4",
-                image: "images/image_50444801.jpg",
+                image: "image_50444801.jpg",
                 title: "佢煮嘅第二餐!!好好食 👩‍🍳",
                 badge: "第 3 個月",
                 desc: "天慧寶廚神廚藝大爆發嘅第二餐！味道簡直同出面高級餐廳有得比，好食到我連碗都想奶埋。一世都食你煮嘅飯就正啦！"
@@ -866,31 +855,31 @@
             {
                 id: 12,
                 month: "m3-4",
-                image: "images/IMG_5920.jpg",
-                title: "100日! 好有紀念價值 😚",
+                image: "IMG_5920.jpg",
+                title: "100日! 你話好有紀念價值 😚",
                 badge: "第 3 個月",
                 desc: "不知不覺一齊 100 日啦！聽你溫柔咁講呢個日子好有紀念價值，我心入面好感動。只要身邊係你，每一日都好珍貴。"
             },
             {
                 id: 13,
                 month: "m3-4",
-                image: "images/image_50436609.jpg",
+                image: "image_50436609.jpg",
                 title: "好開心嘅飲茶 😊",
                 badge: "第 4 個月",
-                desc: "同你一齊去飲茶，食吓燒賣、蝦餃。雖然只係最平凡嘅周末日常，但同你一齊大笑傾偈，就係最踏實嘅幸福。"
+                desc: "同你一齊去飲茶，食吓燒賣、蝦餃。雖然只係最平凡嘅周末日常，同你一齊大笑傾偈，就係最踏實嘅幸福。"
             },
             {
                 id: 14,
                 month: "m3-4",
-                image: "images/image_50727169.jpg",
+                image: "image_50727169.jpg",
                 title: "踩船搵龜頭 😌😌",
                 badge: "第 4 個月",
-                desc: "兩個傻瓜一齊去踩船仔，仲話要「搵龜頭」，哈哈！雖然踩到腳都軟晒、汗流浹背，但一齊探索同大笑，真係好療癒。"
+                desc: "兩個傻瓜一齊去踩船仔，仲話要「搵龜頭」，哈哈！雖然踩到腳都軟晒、汗流浹背，一齊探索同大笑，真係好療癒。"
             },
             {
                 id: 15,
                 month: "m3-4",
-                image: "images/image_50750721.jpg",
+                image: "image_50750721.jpg",
                 title: "glamping!!! 🌌 無星跟住嬲咗我 🥲",
                 badge: "第 4 個月",
                 desc: "超期待嘅 glamping 露營大冒險！點知當晚天氣唔好，一粒星都無，結果你仲因為咁嬲咗我。好彩最後用一個大抱抱氹返你！"
@@ -899,23 +888,23 @@
             {
                 id: 16,
                 month: "m5-6",
-                image: "images/IMG_7802.jpg",
-                title: "許願吹蠟燭 😂🌙",
+                image: "IMG_7802.jpg",
+                title: "祈求祝福撳熄咗個蠟燭 😂🌙",
                 badge: "第 5 個月",
                 desc: "一齊捧住蛋糕許願，點知手忙腳亂「撳熄咗」支蠟燭！雖然場面一度好搞笑，但相信我哋許嘅甜美願望一定會實現。"
             },
             {
                 id: 17,
                 month: "m5-6",
-                image: "images/IMG_8245.jpg",
-                title: "第一次出國旅行!!!! 😊",
+                image: "IMG_8245.jpg",
+                title: "第一次出去旅行!!!!好值得紀念 😊",
                 badge: "第 5 個月",
                 desc: "我哋人生中第一次一齊出遠門去旅行！踏足陌生嘅城市，因為身邊有你拖住我，成個旅程都閃閃發亮，好值得一世留念。"
             },
             {
                 id: 18,
                 month: "m5-6",
-                image: "images/image_67222017.jpg",
+                image: "image_67222017.jpg",
                 title: "和好嘅溜冰 🥺",
                 badge: "第 5 個月",
                 desc: "鬧完脾氣、頂完嘴之後一齊去和好溜冰。手拖手喺冰面上慢慢平衡，一邊驚一邊笑，原來幸福就係跌跌撞撞都唔放手。"
@@ -923,7 +912,7 @@
             {
                 id: 19,
                 month: "m5-6",
-                image: "images/image_67226113.jpg",
+                image: "image_67226113.jpg",
                 title: "同吉祥物影相 🥰",
                 badge: "第 6 個月",
                 desc: "同巨型可愛吉祥物影合照！你當時笑得特別甜、特別無邪，搞到我眼中完全睇唔到吉祥物，只見到最可愛嘅你。"
@@ -931,7 +920,7 @@
             {
                 id: 20,
                 month: "m5-6",
-                image: "images/IMG_8802.jpg",
+                image: "IMG_8802.jpg",
                 title: "返到嚟扮貓貓可愛 😘",
                 badge: "第 6 個月",
                 desc: "返到酒店房，你喺度扮貓貓喵喵叫，真係超級無敵可愛！我成粒心都被你溶化晒，以後都想繼續俾你咁樣萌倒。"
@@ -939,7 +928,7 @@
             {
                 id: 21,
                 month: "m5-6",
-                image: "images/IMG_8919.jpg",
+                image: "IMG_8919.jpg",
                 title: "難忘到喊嘅生日party 😭",
                 badge: "第 6 個月",
                 desc: "精心準備嘅驚喜生日 Party！見到你感動到流眼淚嗰一刻，我真係覺得所有嘅心思同汗水都無白費。半週年快樂，寶貝！"
@@ -951,7 +940,6 @@
         function renderPolaroids(filterType = 'all') {
             polaroidGrid.innerHTML = '';
             
-            // 篩選月份資料
             let filteredPhotos = PHOTO_DATABASE;
             if (filterType !== 'all') {
                 filteredPhotos = PHOTO_DATABASE.filter(p => p.month === filterType);
@@ -962,15 +950,11 @@
                 card.className = 'polaroid';
                 card.onclick = () => openModal(photo);
                 
-                // 動態微調偏斜角度，打造逼真拍立得牆感覺
                 const randomAngle = (Math.random() * 4 - 2).toFixed(1);
                 card.style.transform = `rotate(${randomAngle}deg)`;
 
-                // 錯誤圖片處理 (以 SVG 代替 broken link，確保網站完美運行且預留無縫上傳空間)
-                const fallbackImgUrl = `https://placehold.co/400x400/fff0ed/e8a598?text=${encodeURIComponent(photo.title.substring(0, 15))}`;
-
                 card.innerHTML = `
-                    <img src="${photo.image}" alt="${photo.title}" onerror="this.onerror=null; this.src='${fallbackImgUrl}';">
+                    <img src="${photo.image}" alt="${photo.title}" onerror="handleImgError(this, '${photo.title}')">
                     <div class="caption">
                         ${photo.title}
                         <span class="badge">${photo.badge}</span>
@@ -981,55 +965,81 @@
             });
         }
 
-        // 月份篩選器邏輯
-        function filterMonth(monthType) {
-            // 切換按鈕的 Active 狀態
-            const buttons = document.querySelectorAll('.filter-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
+        // 備用 canvas 渲染 (防止本地測試或沒圖時完全空白)
+        function handleImgError(img, title) {
+            img.onerror = null;
+            const canvas = document.createElement('canvas');
+            canvas.width = 400;
+            canvas.height = 400;
+            const ctx = canvas.getContext('2d');
             
-            event.target.classList.add('active');
+            const gradient = ctx.createLinearGradient(0, 0, 400, 400);
+            gradient.addColorStop(0, '#f9e5e1');
+            gradient.addColorStop(1, '#f3d5cf');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 400, 400);
             
-            // 漸變動畫載入
-            polaroidGrid.style.opacity = '0.3';
-            setTimeout(() => {
-                renderPolaroids(monthType);
-                polaroidGrid.style.opacity = '1';
-            }, 250);
+            ctx.fillStyle = '#e25c5c';
+            ctx.font = '80px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('❤️', 200, 160);
+            
+            ctx.fillStyle = '#7a6a5e';
+            ctx.font = 'bold 20px "Microsoft JhengHei"';
+            ctx.fillText('載入中...', 200, 260);
+            
+            img.src = canvas.toDataURL();
         }
 
-        // Modal Lightbox 彈出窗系統
-        const modal = document.getElementById('polaroidModal');
+        // 篩選月份功能
+        function filterMonth(monthType) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            if (monthType === 'all') document.getElementById('btn-all').classList.add('active');
+            if (monthType === 'm1-2') document.getElementById('btn-m1-2').classList.add('active');
+            if (monthType === 'm3-4') document.getElementById('btn-m3-4').classList.add('active');
+            if (monthType === 'm5-6') document.getElementById('btn-m5-6').classList.add('active');
+            
+            polaroidGrid.style.opacity = 0;
+            setTimeout(() => {
+                renderPolaroids(monthType);
+                polaroidGrid.style.opacity = 1;
+            }, 300);
+        }
+
+        // 拍立得彈出詳細視窗
+        const polaroidModal = document.getElementById('polaroidModal');
         const modalImg = document.getElementById('modalImg');
         const modalTitle = document.getElementById('modalTitle');
         const modalDesc = document.getElementById('modalDesc');
 
         function openModal(photo) {
             modalImg.src = photo.image;
-            // 備份 Fallback 機制
             modalImg.onerror = function() {
-                this.src = `https://placehold.co/500x500/fff0ed/e8a598?text=${encodeURIComponent(photo.title)}`;
+                handleImgError(this, photo.title);
             };
             modalTitle.innerText = photo.title;
             modalDesc.innerText = photo.desc;
-            
-            modal.classList.add('active');
+            polaroidModal.classList.add('active');
         }
 
         function closeModal() {
-            modal.classList.remove('active');
+            polaroidModal.classList.remove('active');
         }
 
-        // 點擊 Modal 外側可以關閉
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
+        polaroidModal.addEventListener('click', function(e) {
+            if (e.target === polaroidModal) {
                 closeModal();
             }
         });
 
-        // 首次啟動渲染
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+
         window.onload = function() {
             renderPolaroids('all');
-        };
+        }
     </script>
 </body>
 </html>
